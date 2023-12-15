@@ -12,7 +12,8 @@ build/
 .project
 .settings
 .springBeans
-.class
+*.class
+/target/
 .sts4-cache
 bin/
 !**/src/main/**/bin/
