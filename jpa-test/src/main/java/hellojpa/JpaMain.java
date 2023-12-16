@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,8 +11,8 @@ import javax.persistence.Persistence;
 
 public class JpaMain {
 	public static void main(String[] args) {
-//		 createMember();
-		findMember();
+		 createMember();
+//		findMember();
 	}
 
 	/**
@@ -31,11 +33,18 @@ public class JpaMain {
 			for(Long i = 0L; i < 100L; i++) {
 				Member member = new Member();
 				member.setId(i);
-				member.setName("hello"+i);
+				member.setUsername("hello"+i);
+				member.setTestLocalDate(LocalDate.now());
+				member.setTestLocalDatetime(LocalDateTime.now());
+				
+				if(i <90) {
+					member.setRoleType(RoleType.USER);
+				}else {
+					member.setRoleType(RoleType.ADMIN);
+				}
 	
 				em.persist(member);
 			}
-
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
@@ -43,7 +52,7 @@ public class JpaMain {
 			em.clear();
 		}
 
-		emf.close();
+		emf.close();	//emf는 하나만 생성해서 애플리케이션 전체에서 공유, main이 끝나기에  close();
 	}
 
 	/**
@@ -61,7 +70,7 @@ public class JpaMain {
 			// 1건 검색
 			Member findMember = em.find(Member.class, 2L);
 			System.out.println("findMember = " + findMember);
-			
+			em.flush();
 			// 페이징 검색(객체 중심으로 쿼리 작성한다)
 			List<Member> memberList = em.createQuery("select m from Member as m", Member.class)
 				.setFirstResult(30)
