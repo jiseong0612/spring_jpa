@@ -1,5 +1,7 @@
 package joinColumn;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -13,7 +15,6 @@ public class JpaMain {
 		tx.begin();
 
 		try {
-			//정상 CASE
 			//연관관계 주인에 값을 넣어야 한다.
 			Team team1 = new Team();
 			team1.setName("incheon");
@@ -21,19 +22,19 @@ public class JpaMain {
 			
 			Member member = new Member();
 			member.setUserName("user01");
-			member.setTeam(team1);
+			member.changeTeam(team1);
 			em.persist(member);
 			
-			//에러 CASE
-			//주인이 아닌 것에 넣으면 null
-			Member member2 = new Member();
-			member2.setUserName("user02");
-			em.persist(member2);
+			em.flush();
+			em.clear();
+
+			Team findTeam = em.find(Team.class, team1.getTeamId());
+			List<Member> members = findTeam.getMembers();
 			
-			Team team2 = new Team();
-			team2.setName("seoul");
-			team2.getMembers().add(member2);
-			em.persist(team2);
+			System.out.println("==================");
+			System.out.println("members >>> " + findTeam);	//무한 루프에 빠짐 stackOverFlow
+			System.out.println("==================");
+			
 			
 			tx.commit();
 		} catch (Exception e) {
