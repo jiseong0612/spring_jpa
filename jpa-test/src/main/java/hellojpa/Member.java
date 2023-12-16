@@ -10,6 +10,7 @@ import javax.persistence.Id;
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "MEMBER_ID")
 	private int id;
 	
 	@Column(name = "name", nullable = false)
