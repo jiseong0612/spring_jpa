@@ -30,23 +30,17 @@ public class JpaMain {
 		tx.begin();
 
 		try {
-			for(Long i = 0L; i < 100L; i++) {
 				Member member = new Member();
-				member.setId(i);
-				member.setUsername("hello"+i);
-				member.setTestLocalDate(LocalDate.now());
-				member.setTestLocalDatetime(LocalDateTime.now());
+				member.setUsername("C");
 				
-				if(i <90) {
-					member.setRoleType(RoleType.USER);
-				}else {
-					member.setRoleType(RoleType.ADMIN);
-				}
-	
 				em.persist(member);
-			}
+				System.out.println("id >>>>> " + member.getId());
+				System.out.println("id >>>>> " + member.getId());
+				
 			tx.commit();
+			System.out.println("id >>>>> " + member.getId());
 		} catch (Exception e) {
+			e.printStackTrace();
 			tx.rollback();
 		} finally {
 			em.clear();
