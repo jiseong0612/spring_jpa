@@ -13,22 +13,28 @@ public class JpaMain {
 		tx.begin();
 
 		try {
-			// code;
+			//정상 CASE
+			//연관관계 주인에 값을 넣어야 한다.
 			Team team1 = new Team();
 			team1.setName("incheon");
 			em.persist(team1);
-
+			
 			Member member = new Member();
-			member.setUserName("won ders");
+			member.setUserName("user01");
 			member.setTeam(team1);
 			em.persist(member);
-
-			//영속성 컨텍스트 날리고 쿼리 조회하고 싶을때
-			em.flush();
-			em.clear();
 			
-			Member findMember = em.find(Member.class, member.getId());
-			System.out.println(findMember.getTeam().getName());
+			//에러 CASE
+			//주인이 아닌 것에 넣으면 null
+			Member member2 = new Member();
+			member2.setUserName("user02");
+			em.persist(member2);
+			
+			Team team2 = new Team();
+			team2.setName("seoul");
+			team2.getMembers().add(member2);
+			em.persist(team2);
+			
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
