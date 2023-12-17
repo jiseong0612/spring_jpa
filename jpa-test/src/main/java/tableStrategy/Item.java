@@ -10,7 +10,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)	//상속관계 매핑시 이걸 디폴트로 사용한다.
 @DiscriminatorColumn	//자식 클래스들을 나누는 컬럼
-public abstract class Item {
+public abstract class Item extends BaseEntity{
 
 	@Id @GeneratedValue
 	private Long id;
