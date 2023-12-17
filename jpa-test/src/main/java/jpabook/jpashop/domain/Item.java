@@ -20,7 +20,6 @@ public class Item {
 	@ManyToMany(mappedBy = "items")
 	private List<Category> categorys = new ArrayList<Category>();
 	
-	
 	private String name;
 	private int price;
 	private int stockQuantity;

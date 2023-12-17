@@ -46,6 +46,4 @@ public class Delivery {
 	public void setStatus(DeliveryStatus status) {
 		this.status = status;
 	}
-	
-	
 }

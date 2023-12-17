@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,21 +26,22 @@ public class Order {
 	@Column(name = "ORDER_ID")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 	
-	@OneToOne
-	@JoinColumn(name = "DELIVERY_ID")
-	private Delivery delivery;
 
 	private LocalDateTime orderDate;
 	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "DELIVERY_ID")
+	private Delivery delivery;
+	
 	//1.주문서에서 주문한 아이템목록을 보고 싶을 때
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
 	//2.양방향 연관관계 순수 객체 대응 함수
