@@ -13,10 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "ORDERS")
+//@Entity
+@Table(name = "ORDERS")	//특정 DBMS에선 ORDER이 예약어 일 수 있다.
 public class Order {
 	@Id
 	@GeneratedValue
@@ -26,8 +27,13 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
+	
+	@OneToOne
+	@JoinColumn(name = "DELIVERY_ID")
+	private Delivery delivery;
 
 	private LocalDateTime orderDate;
+	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	
@@ -40,7 +46,7 @@ public class Order {
 		orderItems.add(orderItem);
 		orderItem.setOrder(this);
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +61,14 @@ public class Order {
 
 	public void setMember(Member member) {
 		this.member = member;
+	}
+
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
 	}
 
 	public LocalDateTime getOrderDate() {
@@ -73,4 +87,11 @@ public class Order {
 		this.status = status;
 	}
 
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
 }

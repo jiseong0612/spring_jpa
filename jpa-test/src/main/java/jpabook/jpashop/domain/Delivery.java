@@ -1,40 +1,26 @@
 package jpabook.jpashop.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 //@Entity
-public class Member {
-	@Id
-	@GeneratedValue
-	@Column(name = "MEMBER_ID")
+public class Delivery {
+
+	@Id @GeneratedValue
+	@Column(name = "DELIVERY_ID")
 	private Long id;
-	private String name;
+	
 	private String city;
 	private String street;
 	private String zipcode;
-	
-	//양방향 조회를 위함, 필드명 입력
-	@OneToMany(mappedBy = "member")
-	private List<Order> orders = new ArrayList<Order>();
-	
+	private DeliveryStatus status;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getCity() {
 		return city;
@@ -54,4 +40,12 @@ public class Member {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+	public DeliveryStatus getStatus() {
+		return status;
+	}
+	public void setStatus(DeliveryStatus status) {
+		this.status = status;
+	}
+	
+	
 }
