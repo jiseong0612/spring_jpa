@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
