@@ -1,7 +1,5 @@
 package hellojpa;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -31,7 +29,8 @@ public class JpaMain {
 
 		try {
 				Member member = new Member();
-				member.setUsername("C");
+				member.setUsername("Cc");
+				member.setHomeAddress(new Address("cityy", "backbumro", "123"));
 				
 				em.persist(member);
 				System.out.println("id >>>>> " + member.getId());
