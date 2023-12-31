@@ -29,12 +29,21 @@ public class JpaMain {
 
 		try {
 				Member member = new Member();
-				member.setUsername("Cc");
+				member.setUsername("aaaa");
 				member.setHomeAddress(new Address("cityy", "backbumro", "123"));
 				
 				em.persist(member);
 				System.out.println("id >>>>> " + member.getId());
 				System.out.println("id >>>>> " + member.getId());
+				Member member2 = new Member();
+				member2.setUsername("bbbb");
+				member2.setHomeAddress(new Address("cityy", "backbumro", "123"));
+				
+				em.flush();
+				em.clear();
+				
+				String qlString = "select m from Member m where m.username like '%a%'";
+				Member findMember = (Member) em.createQuery(qlString).getResultList().get(0);
 				
 			tx.commit();
 			System.out.println("id >>>>> " + member.getId());
