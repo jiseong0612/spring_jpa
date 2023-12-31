@@ -6,6 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+
 
 public class JpaMain {
 	public static void main(String[] args) {
@@ -41,9 +46,16 @@ public class JpaMain {
 				
 				em.flush();
 				em.clear();
+//				String qlString = "select m from Member m where m.username like '%a%'";
+//				Member findMember = (Member) em.createQuery(qlString).getResultList().get(0);
+				CriteriaBuilder cb = em.getCriteriaBuilder();
+				CriteriaQuery<Member> query = cb.createQuery(Member.class);
 				
-				String qlString = "select m from Member m where m.username like '%a%'";
-				Member findMember = (Member) em.createQuery(qlString).getResultList().get(0);
+				Root<Member> m = query.from(Member.class);
+				
+				//CriteriaBuilder 단점으로 너무 복잡하고 실용성이 없다. 유지보수에 최악! 
+				CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("username"), "kim"));
+				List<Member> resultList = em.createQuery(cq).getResultList();
 				
 			tx.commit();
 			System.out.println("id >>>>> " + member.getId());
