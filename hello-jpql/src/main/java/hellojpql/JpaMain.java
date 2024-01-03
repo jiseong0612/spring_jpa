@@ -1,16 +1,11 @@
 package hellojpql;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import hellojpql.domain.Member;
-import hellojpql.domain.Team;
 
 public class JpaMain {
 	public static void main(String[] args) {// 하나만 생성해서 애플리케이션 전체에서 공유
@@ -25,32 +20,11 @@ public class JpaMain {
 		tx.begin();
 
 		try {
-			Team team = new Team();
-			team.setName("powerTeam");
-			em.persist(team);
 			
 			Member member = new Member();
-			member.setUsername("aaaa");
-			member.setTeam(team);
+			member.setUsername("member122");
 			em.persist(member);
 			
-			Member member2 = new Member();
-			member2.setUsername("bbbb");
-			member2.setTeam(team);
-			em.persist(member2);
-
-			em.flush();
-			em.clear();
-//---------------------------------------------------------------------------------------------------------------
-			TypedQuery<Member> query = em.createQuery("SELECT m.username, m.age from Member m ", Member.class);
-			
-			List<Member> findList=  query.getResultList();
-			Team findTeam = em.find(Team.class, team.getId());
-			List<Member> memberList = findTeam.getMembers();
-			
-			for(Member teamMember : memberList) {
-				System.out.println(teamMember.getUsername());
-			}
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

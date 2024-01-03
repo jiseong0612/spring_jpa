@@ -9,22 +9,9 @@ public class Product {
 
 	@Id @GeneratedValue
 	private Long id;
-	
 	private String name;
 	private int price;
 	private int stockAmount;
-	
-	public Product() {
-		
-	}
-	
-	public Product(Long id, String name, int price, int stockAmount) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.price = price;
-		this.stockAmount = stockAmount;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -49,4 +36,6 @@ public class Product {
 	public void setStockAmount(int stockAmount) {
 		this.stockAmount = stockAmount;
 	}
+	
+	
 }

@@ -7,16 +7,6 @@ public class Address {
 	private String city;
 	private String street;
 	private String zipCode;
-	
-	public Address() {
-		
-	}
-	public Address(String city, String street, String zipCode) {
-		super();
-		this.city = city;
-		this.street = street;
-		this.zipCode = zipCode;
-	}
 	public String getCity() {
 		return city;
 	}
@@ -35,4 +25,5 @@ public class Address {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+	
 }
