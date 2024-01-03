@@ -1,5 +1,13 @@
 package hellojpql.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,8 +25,18 @@ public class Member {
 	@JoinColumn(name="TEAM_ID")
 	private Team team;
 	
-//	@OneToMany
-//	private List<Order> orderList = new ArrayList();
+	@Embedded
+	private Address homeAddress;
+	
+	//값 타입 컬렉션
+	@ElementCollection
+	@CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name="MEMBER_ID"))
+	private Set<String> favoriteFoods = new HashSet<String>();
+	
+	//값 타입 컬렉션
+	@ElementCollection
+	@CollectionTable(name = "ADRRESS")
+	private List<Address> addressHistory = new ArrayList<Address>();
 	
 	public Team getTeam() {
 		return team;
